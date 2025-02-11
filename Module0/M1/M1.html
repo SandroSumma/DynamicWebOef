@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekenmachine</title>
+</head>
+<body>
+
+    <input type="text" id="getal1">
+    <span> + </span>
+    <input type="text" id="getal2">
+    <button id="bereken">Bereken</button>
+    <p id="resultaat" style="padding: 0px 20px;">Het resultaat komt hier</p>
+
+    <script>
+        "use strict";
+
+        const getal1Input = document.getElementById("getal1");
+        const getal2Input = document.getElementById("getal2");
+        const berekenKnop = document.getElementById("bereken");
+        const resultaatVeld = document.getElementById("resultaat");
+
+        berekenKnop.addEventListener("click",  () => {
+            const nr1 = Number(getal1Input.value);
+            const nr2 = Number(getal2Input.value);
+
+            if (isNaN(nr1) || isNaN(nr2)) {
+                resultaatVeld.textContent = "Voer geldige getallen in!";
+                return;
+            }
+
+            const som = nr1 + nr2;
+            resultaatVeld.textContent = `${som}`;
+        });
+    </script>
+
+</body>
+</html>
