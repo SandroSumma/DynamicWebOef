@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #grid{
+        display: grid;
+        grid-template-columns: 0.3fr 0.3fr 0.3fr 0.3fr 0.3fr;
+        grid-template-rows: 0.3fr 0.3fr 0.3fr 0.3fr 0.3fr;
+        width: 50%;
+        height: 300px;
+        gap: 1px;
+    }
+
+    #grid>*{
+        background-color: grey;
+    }
+
+    
+
+</style>
+<body>
+    <div id="container">
+        <div id="grid">
+
+        </div>
+        <div id="stats">
+            <p>Rood: <span id="redCount">0</span></p>
+            <p>Blauw: <span id="blueCount">0</span></p>
+            <p>Groen: <span id="greenCount">0</span></p>
+        </div>
+     </div>
+
+     <script src="M2.js"></script>
+</body>
+</html>
