@@ -1,2 +1,22 @@
-<button onclick="">Hallo</button>
-<script src="mijn-script.js"></script>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Begroeting Button</title>
+</head>
+<body>
+    <button id="greetingButton">Hallo!</button>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const button = document.getElementById("greetingButton");
+        button.addEventListener("click", function() {
+           button.innerHTML = button.innerHTML === "Hallo!" ? "Tot ziens!" : "Hallo!";
+        });
+    });
+
+    </script>
+</body>
+</html>
+
