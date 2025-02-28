@@ -1,56 +1,61 @@
 class Student {
-    constructor(naam) {
+    constructor(naam, vakken = []) {
         this.naam = naam;
-        this.vakken = {};
+        this.vakken = vakken;
+        this.punten = {};
     }
 
     voegPuntToe(vak, punt) {
-        this.vakken[vak] = punt;
+        if (!this.vakken.includes(vak)) {
+            this.vakken.push(vak);
+        }
+
+        this.punten[vak] = punt;
+        return `Punt ${punt} toegevoegd voor ${vak}`;
     }
 
     gemiddelde() {
-        const punten = Object.values(this.vakken);
-        return punten.reduce((a, b) => a + b, 0) / punten.length;
+        let totaal = 0;
+        let aantalVakken = 0;
+
+        for (const vak in this.punten) {
+            totaal += this.punten[vak];
+            aantalVakken++;
+        }
+
+        return aantalVakken > 0 ? totaal / aantalVakken : 0;
     }
 
     toonRapport() {
-        return `${this.naam}'s Rapport: ${Object.entries(this.vakken).map(([vak, punt]) => `${vak}: ${punt}`).join(', ')}. Gemiddeld: ${this.gemiddelde().toFixed(2)}`;
+        let rapport = `<h2>Rapport voor ${this.naam}</h2>`;
+        rapport += `<ul>`;
+
+        for (const vak in this.punten) {
+            rapport += `<li>${vak}: ${this.punten[vak]}/20</li>`;
+        }
+
+        rapport += `</ul>`;
+        rapport += `<p>Gemiddelde: ${this.gemiddelde().toFixed(1)}/20</p>`;
+
+        return rapport;
     }
 }
 
-let studenten = [];
+// Creëer studenten
+const student1 = new Student("Emma", ["Dynamic Web", "Static Web", "Backend Web"]);
+const student2 = new Student("Milan", ["Backend Web", "Dynamic Web"]);
 
-const voegPuntToe = () => {
-    const naam = document.getElementById("studentName").value.trim();
-    const vak = document.getElementById("vak").value.trim();
-    const punt = parseInt(document.getElementById("punt").value);
+// Voeg punten toe aan de studenten
+student1.voegPuntToe("Dynamic Web", 15);
+student1.voegPuntToe("Static Web", 14);
+student1.voegPuntToe("Backend Web", 17);
 
-    if (!naam || !vak || isNaN(punt)) {
-        alert("Vul alle velden correct in!");
-        return;
-    }
+student2.voegPuntToe("Dynamic Web", 18);
+student2.voegPuntToe("Backend Web", 16);
 
-    let student = studenten.find(s => s.naam === naam);
-    
-    if (!student) {
-        student = new Student(naam);
-        studenten.push(student); // Voeg de nieuwe student toe aan de lijst
-    }
-
-    student.voegPuntToe(vak, punt);
-
-    // Reset de velden na het toevoegen van een punt
-    document.getElementById("vak").value = "";
-    document.getElementById("punt").value = "";
-};
-
-const toonRapport = () => {
-    if (studenten.length === 0) {
-        alert("Er zijn nog geen studenten toegevoegd!");
-        return;
-    }
-
-    const output = document.getElementById("output");
-    output.innerHTML = studenten.map(student => `<p>${student.toonRapport()}</p>`).join('');
-};
-
+// Toon rapporten op de pagina
+document.getElementById("output").innerHTML = `
+    <h1>Studenten Rapporten</h1>
+    <h3>${student1.toonRapport()}</h3>
+    <h3>${student2.toonRapport()}</h3>
+`;
